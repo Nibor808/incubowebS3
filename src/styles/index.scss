@@ -1,0 +1,279 @@
+/* -------------- GLOBALS -------------- */
+$icon-font-path: '/fonts/';
+
+$borderRadius: 3px;
+
+$white: rgb(255, 255, 255);
+$blue: rgb(102, 133, 230);
+$blueText: rgb(65, 85, 148);
+$darkBlue: rgb(78, 105, 184);
+$lightBlue: rgb(135, 158, 229);
+$green: rgb(135, 237, 137);
+$yellow: rgb(238, 219, 81);
+$red: rgb(211, 0, 57);
+
+$fontColor: rgb(51, 51, 51);
+$lightFontColor: rgb(220, 224, 228);
+
+$darkBackground: rgb(53, 58, 61);
+
+$boxShadowSm: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 10px rgba(0, 0, 0, 0.24);
+$boxShadowMed: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+
+$input-grey: rgba(204, 204, 204, 1);
+$input-gradient-white: rgba(247, 247, 248, 1);
+$input-inset-shadow1: rgba(0, 0, 0, 0.2);
+$input-inset-shadow2: rgba(0, 0, 0, 0.05);
+
+@import 'custom_bootstrap';
+@import 'fonts';
+@import 'header';
+@import 'about';
+@import 'portfolio';
+@import 'buttons_inputs';
+@import 'modal';
+
+/* -------------- FORMATTING -------------- */
+html,
+body {
+    height: 100%;
+}
+
+body {
+    padding: 0;
+}
+
+.container-fluid {
+    padding: 1.875em 0 0 0;
+    position: relative;
+    min-height: 100%;
+}
+
+.container {
+    max-width: 1140px;
+}
+
+.landing {
+    padding-bottom: 40px;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+.sidebar {
+    display: flex;
+    justify-content: flex-start;
+}
+
+.contact > .row > .col-12 > .cta {
+    display: flex;
+    & > a.social-link {
+        padding-left: 20px;
+    }
+}
+
+/* -------------- COLORS -------------- */
+/* Fix Safari's font weight issue */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
+}
+
+#dark-light-toggle:focus {
+    box-shadow: none;
+}
+
+#dark-light-toggle:checked {
+    border-color: transparent;
+    background-color: $green;
+}
+
+.dark-mode {
+    body,
+    .container-fluid {
+        background: $darkBackground;
+        color: $lightFontColor;
+        transition: background 0.5s;
+    }
+
+    a {
+        color: $lightBlue !important;
+    }
+
+    .mode-icon {
+        color: $fontColor;
+    }
+
+    .img-modal {
+        background-color: $darkBackground;
+
+        .img-modal-content {
+            color: $lightFontColor;
+        }
+    }
+}
+
+body,
+.container-fluid {
+    background: $white;
+    transition: background 0.5s;
+    color: $fontColor;
+}
+
+a,
+button.nav-link {
+    color: $blueText !important;
+}
+
+.nav-shadow {
+    .navbar {
+        box-shadow: $boxShadowMed;
+    }
+}
+
+/* -------------- MEDIA QUERIES -------------- */
+
+/* up to iPhone 5 landscape */
+@media screen and (min-width: 320px) and (max-width: 568px) {
+    html {
+        font-size: 12px;
+    }
+
+    .landing {
+        .about {
+            padding-top: 120px;
+
+            .about-container {
+                padding: 0;
+
+                .top-box {
+                    min-width: 100%;
+                }
+            }
+        }
+    }
+
+    header {
+        .navbar {
+            .container {
+                .navbar-toggler {
+                    padding: 5px 15px;
+                }
+            }
+        }
+    }
+
+    .portfolio {
+        .portfolio-container {
+            .sidebar2020 {
+                border-right: 0;
+                padding-left: 15px;
+                border-bottom: 5px solid $blue;
+            }
+
+            .sidebar2017 {
+                border-right: 0;
+                padding-left: 15px;
+                border-bottom: 5px solid $green;
+            }
+
+            .sidebar2016 {
+                border-right: 0;
+                padding-left: 15px;
+                border-bottom: 5px solid $yellow;
+            }
+
+            .portfolio-item {
+                margin-left: 0;
+            }
+        }
+    }
+}
+
+/* iPad portrait and iPhone X landscape */
+@media screen and (min-width: 768px) and (max-width: 812px) {
+    .landing {
+        .about {
+            .about-container {
+                padding-top: 150px;
+
+                .top-box {
+                    min-width: 650px;
+                }
+            }
+        }
+
+        .portfolio {
+            .portfolio-container {
+                margin-left: 15px;
+
+                .sidebar2016,
+                .sidebar2017,
+                .sidebar2020 {
+                    padding: 0;
+
+                    p {
+                        font-size: 20px;
+                    }
+                }
+
+                .portfolio-item {
+                    margin-left: 0;
+                }
+            }
+        }
+    }
+}
+
+/* up to iPhone X landscape = 812px */
+@media screen and (max-width: 812px) {
+    header {
+        .navbar {
+            .container {
+                padding: 10px;
+                align-items: flex-start;
+
+                #logo-img {
+                    margin: 0;
+                }
+
+                .nav-item:last-child {
+                    margin-left: 0;
+                }
+
+                .navbar-nav > .nav-item {
+                    margin-left: 0;
+                }
+
+                .navbar-collapse {
+                    .nav-item {
+                        margin-top: 10px;
+                    }
+
+                    .linkedin {
+                        margin: 10px 0 0 10px;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media screen and (min-width: 1024px) {
+    .mode-icon {
+        margin-right: 8px;
+    }
+}
+
+@media screen and (min-width: 1280px) {
+    .mode-icon {
+        margin-right: 0;
+    }
+}

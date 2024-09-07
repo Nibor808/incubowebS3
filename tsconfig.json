@@ -1,0 +1,33 @@
+{
+    "compilerOptions": {
+        "baseUrl": "src/",
+        "experimentalDecorators": true,
+        "lib": ["dom", "dom.iterable", "esnext"],
+        "allowJs": true,
+        "esModuleInterop": true,
+        "allowSyntheticDefaultImports": true,
+        "strict": true,
+        "forceConsistentCasingInFileNames": true,
+        "noFallthroughCasesInSwitch": true,
+        "module": "esnext",
+        "moduleResolution": "node",
+        "resolveJsonModule": true,
+        "isolatedModules": true,
+        "noEmit": true,
+        "jsx": "react",
+        "noImplicitAny": true,
+        "noUnusedLocals": true,
+        "noUnusedParameters": true,
+        "pretty": true,
+        "skipLibCheck": true,
+        "sourceMap": true,
+        "target": "ES2021",
+        "strictPropertyInitialization": false,
+        "useUnknownInCatchVariables": false,
+        "strictNullChecks": true
+    },
+    "include": [
+        "src"
+    ],
+    "exclude": ["__tests__", "__test__", "node_modules"]
+}

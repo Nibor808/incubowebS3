@@ -1,0 +1,13 @@
+.about-container {
+    padding-top: 210px;
+
+    .top-box {
+        min-width: 900px;
+
+        img {
+            border-radius: 50%;
+            box-shadow: $boxShadowMed;
+            margin-bottom: 20px;
+        }
+    }
+}
