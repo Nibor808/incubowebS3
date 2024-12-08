@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { memo } from 'react';
+import { useStats } from '../hooks/useStats';
+import { useTime } from '../hooks/useTime';
 import robin from '../styles/images/robin-head.jpeg';
-import {useStats} from '../hooks/useStats';
-import {useTime} from '../hooks/useTime';
 
 export const myInfo = {
     name: 'Robin Erickson',
@@ -9,7 +9,7 @@ export const myInfo = {
     blurb: 'Exploring technology one language at a time.',
 };
 
-export const About: React.FC = () => {
+export const About: React.FC = memo(() => {
     const time = useTime();
 
     return (
@@ -31,4 +31,4 @@ export const About: React.FC = () => {
             <span dangerouslySetInnerHTML={{__html: useStats(time)}} />
         </div>
     );
-};
+});

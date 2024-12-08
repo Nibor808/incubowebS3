@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useRef, useState} from 'react';
+import React, { useEffect, useRef, useState} from 'react';
 import {Header} from './Header';
 import {About} from './About';
 import {PortfolioList} from './PortfolioList';
@@ -41,26 +41,22 @@ export const App: React.FC = () => {
     const [pageOffset, setPageOffset] = useState<number>(0);
     const previousPageOffset = usePrevious(pageOffset);
 
-    const scrollHandler = useCallback(() => {
-        setPageOffset(window.scrollY);
-        const img = document.getElementById('logo-img') as HTMLImageElement;
-
-        if (pageOffset !== previousPageOffset) {
-            resizeImage({image: img, windowWidth: width});
-        }
-    }, [width, pageOffset]);
-
     useEffect(() => {
         const scroller = () => {
-            window.addEventListener('scroll', scrollHandler);
-        };
+            setPageOffset(window.scrollY);
+            const img = document.getElementById('logo-img') as HTMLImageElement;
 
-        scroller();
+            if (pageOffset !== previousPageOffset) {
+                resizeImage({image: img, windowWidth: width});
+            }
+        }
+
+        window.addEventListener('scroll', scroller);
 
         return () => {
             window.removeEventListener('scroll', scroller);
         };
-    }, []);
+    }, [width, pageOffset]);
 
     const handleClick = (ev: React.MouseEvent<HTMLImageElement>) => {
         setIsOpen(true);
@@ -68,7 +64,7 @@ export const App: React.FC = () => {
         setEvent(ev);
     };
 
-    const showModal = React.useCallback((): React.ReactElement => {
+    const ImageModal = React.useCallback((): React.ReactElement => {
         const target = event?.target as HTMLImageElement;
 
         return (
@@ -76,8 +72,7 @@ export const App: React.FC = () => {
                 <Modal
                     isOpen={isOpen}
                     setIsOpen={setIsOpen}
-                    srcText={target?.dataset.text} // holds path to full size image
-                    headerText={target?.alt}
+                    target={target}
                 />
             </span>
         );
@@ -85,7 +80,7 @@ export const App: React.FC = () => {
 
     return (
         <>
-            {isOpen ? showModal() : null}
+            {isOpen ? <ImageModal /> : null}
             <Header
                 key="header-1"
                 toContact={(ev: React.MouseEvent<HTMLButtonElement>) =>

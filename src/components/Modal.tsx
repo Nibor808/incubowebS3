@@ -4,11 +4,14 @@ import ReactModal from 'react-modal';
 interface ModalProps {
     isOpen: boolean;
     setIsOpen: (arg: boolean) => void;
-    headerText: string | undefined;
-    srcText: string | undefined;
+    target: HTMLImageElement;
 }
 
-export const Modal: React.FC<ModalProps> = ({isOpen, setIsOpen, headerText, srcText}) => {
+export const Modal: React.FC<ModalProps> = ({isOpen, setIsOpen, target}) => {
+    if (!target) {
+        return null;
+    }
+
     return (
         <ReactModal
             appElement={document.getElementById('root') as HTMLElement}
@@ -17,9 +20,9 @@ export const Modal: React.FC<ModalProps> = ({isOpen, setIsOpen, headerText, srcT
             overlayClassName="img-modal-overlay"
             className="img-modal">
             <div className="img-modal-content">
-                <h4>{headerText}</h4>
+                <h4>{target.alt}</h4>
 
-                <img src={srcText} alt={headerText} />
+                <img src={target.srcset} alt={target.alt} />
             </div>
         </ReactModal>
     );

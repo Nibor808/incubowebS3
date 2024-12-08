@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useMemo} from 'react';
 
 export interface MyLinkProps {
     title: string | React.ReactElement;
@@ -7,7 +7,7 @@ export interface MyLinkProps {
 }
 
 export const MyLink: React.FC<MyLinkProps> = ({title, href, klass}) => {
-    return React.useMemo(
+    return useMemo(
         () => (
             <a href={href} target={'_blank'} rel="noopener noreferrer" className={klass}>
                 {title}
