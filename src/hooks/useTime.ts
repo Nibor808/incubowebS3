@@ -1,6 +1,8 @@
 import moment from 'moment/moment';
-import React from 'react';
+import React, {useCallback} from 'react';
 import {TimeValues} from '../types';
+
+const START_DATE = [2016, 0, 1];
 
 export const useTime = (): TimeValues => {
     const [time, setTime] = React.useState<TimeValues>({
@@ -12,8 +14,8 @@ export const useTime = (): TimeValues => {
         seconds: 0,
     });
 
-    const timeActive = () => {
-        const timeSinceStartDate = moment().diff([2016, 0, 1]);
+    const timeActive = useCallback(() => {
+        const timeSinceStartDate = moment().diff(START_DATE);
         const duration = moment.duration(timeSinceStartDate);
 
         setTime({
@@ -24,12 +26,13 @@ export const useTime = (): TimeValues => {
             minutes: duration.minutes(),
             seconds: duration.seconds(),
         });
-    };
+    }, []);
 
     React.useEffect(() => {
+        timeActive(); // Initial calculation
         const timeActiveId = setInterval(timeActive, 1000);
         return () => clearInterval(timeActiveId);
-    }, []);
+    }, [timeActive]);
 
     return time;
 };

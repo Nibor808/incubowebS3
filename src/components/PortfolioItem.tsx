@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {memo} from 'react';
 import {Item} from '../types';
 
 interface PortfolioItemProps {
@@ -6,7 +6,7 @@ interface PortfolioItemProps {
     item: Item;
 }
 
-export const PortfolioItem: React.FC<PortfolioItemProps> = ({handleClick, item}) => {
+export const PortfolioItem: React.FC<PortfolioItemProps> = memo(({handleClick, item}) => {
     const {title, github, renderText, renderImage} = item;
 
     return (
@@ -15,11 +15,11 @@ export const PortfolioItem: React.FC<PortfolioItemProps> = ({handleClick, item})
                 <h3>
                     <strong>{title}</strong>
                 </h3>
-                {github ? github : null}
+                {github}
             </div>
 
-            {renderText ? renderText() : null}
-            {renderImage ? renderImage(handleClick) : null}
+            {renderText?.()}
+            {renderImage?.(handleClick)}
         </div>
     );
-};
+});

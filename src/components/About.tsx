@@ -1,6 +1,5 @@
-import React, { memo } from 'react';
-import { useStats } from '../hooks/useStats';
-import { useTime } from '../hooks/useTime';
+import React, {memo, Suspense, lazy} from 'react';
+import {useTime} from '../hooks/useTime';
 import robin from '../styles/images/robin-head.jpeg';
 
 export const myInfo = {
@@ -8,6 +7,8 @@ export const myInfo = {
     title: 'software developer',
     blurb: 'Exploring technology one language at a time.',
 };
+
+const Stats = lazy(() => import('./Stats'));
 
 export const About: React.FC = memo(() => {
     const time = useTime();
@@ -21,14 +22,17 @@ export const About: React.FC = memo(() => {
                     height="350px"
                     width="350px"
                     className="img-fluid"
+                    loading="lazy"
+                    decoding="async"
                 />
                 <h2>{myInfo.name}</h2>
                 <p>{myInfo.title}</p>
                 <p>{myInfo.blurb}</p>
             </div>
 
-            {/* eslint-disable-next-line react/no-danger */}
-            <span dangerouslySetInnerHTML={{__html: useStats(time)}} />
+            <Suspense fallback={<div>Loading stats...</div>}>
+                <Stats time={time} />
+            </Suspense>
         </div>
     );
 });

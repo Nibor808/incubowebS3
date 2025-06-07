@@ -1,9 +1,10 @@
-import React, {useEffect, useLayoutEffect, useMemo, useState} from 'react';
+import React, {useEffect, useLayoutEffect, useMemo, useState, useCallback} from 'react';
 import logo from '../styles/images/incubo_logo.png';
 import logoSm from '../styles/images/incubo_logo_sm.png';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faMoon, faSun} from '@fortawesome/free-solid-svg-icons';
 import {HeaderLayout} from './HeaderLayout';
+import {debounce} from '../utils/debounce';
 
 export interface HeaderProps {
     toPortfolio: (ev: React.MouseEvent<HTMLButtonElement>) => void;
@@ -14,17 +15,25 @@ export interface HeaderProps {
 export const Header: React.FC<HeaderProps> = ({toPortfolio, toContact, toTop}) => {
     const [darkMode, setDarkMode] = useState<boolean>(false);
     const [modeIcon, setModeIcon] = useState<React.ReactElement>(<FontAwesomeIcon icon={faSun} />);
-    const [width, setWidth] = React.useState<number>(window.innerWidth);
+    const [width, setWidth] = useState<number>(window.innerWidth);
+
+    const handleResize = useCallback(
+        debounce(() => {
+            setWidth(window.innerWidth);
+        }, 100),
+        []
+    );
 
     useLayoutEffect(() => {
-        const resizeHandler = () => setWidth(window.innerWidth);
-
-        window.addEventListener('resize', resizeHandler);
-
-        return () => window.removeEventListener('resize', resizeHandler);
-    }, []);
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, [handleResize]);
 
     const logoImg = useMemo(() => (width < 768 ? logoSm : logo), [width]);
+
+    const toggleDarkMode = useCallback(() => {
+        setDarkMode((prev) => !prev);
+    }, []);
 
     useEffect(() => {
         if (darkMode) {
@@ -42,7 +51,7 @@ export const Header: React.FC<HeaderProps> = ({toPortfolio, toContact, toTop}) =
             toTop={toTop}
             toPortfolio={toPortfolio}
             toContact={toContact}
-            setDarkMode={setDarkMode}
+            setDarkMode={toggleDarkMode}
             darkMode={darkMode}
             modeIcon={modeIcon}
         />
